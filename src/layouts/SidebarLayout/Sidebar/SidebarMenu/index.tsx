@@ -5,7 +5,7 @@ import { NavLink as RouterLink } from 'react-router-dom';
 import { SidebarContext } from 'src/contexts/SidebarContext';
 import {
   Assignment, EngineeringOutlined, ErrorOutline,
-  HomeOutlined,
+  HomeOutlined, InputOutlined,
   ListAlt,
   LiveHelp,
   LocalOffer, QuestionMarkOutlined,
@@ -227,6 +227,30 @@ function SidebarMenu() {
                     startIcon={<ErrorOutline />}
                 >
                   Status 500
+                </Button>
+              </ListItem>
+            </List>
+          </SubMenuWrapper>
+        </List>
+        <List
+            component='div'
+            subheader={
+              <ListSubheader component='div' disableSticky>
+                Components
+              </ListSubheader>
+            }
+        >
+          <SubMenuWrapper>
+            <List component='div'>
+              <ListItem component='div'>
+                <Button
+                    disableRipple
+                    component={RouterLink}
+                    onClick={closeSidebar}
+                    to={pages.input.path}
+                    startIcon={<InputOutlined />}
+                >
+                  Input Form
                 </Button>
               </ListItem>
             </List>

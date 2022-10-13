@@ -15,6 +15,7 @@ const Loader = (Component: FC) => (props: any) =>
 
 // Pages
 const Home = Loader(lazy(() => import('src/pages/Home')));
+const Input = Loader(lazy(() => import('src/pages/Input')));
 
 // Status
 const Status404 = Loader(lazy(() => import('src/components/Fallbacks/Status/Status404')));
@@ -91,6 +92,10 @@ const routes: RouteObject[] = [
             {
                 path: pages.home.name,
                 element: <Home/>,
+            },
+            {
+                path: pages.input.name,
+                element: <Input/>,
             },
         ],
     },

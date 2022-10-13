@@ -22,7 +22,10 @@ const pages = {
             path: '/status/500'
         }
     },
-
+    input: {
+        name: 'input',
+        path: '/sidebar/input'
+    },
 }
 
 export default pages;
