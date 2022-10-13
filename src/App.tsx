@@ -1,28 +1,24 @@
 import React from 'react';
-import { Box, CssBaseline, Paper, Typography } from '@mui/material';
+import { CssBaseline } from '@mui/material';
+import ThemeProvider from './theme/ThemeProvider';
+import router from 'src/router/router';
+import { ToastContainer } from 'react-toastify';
+import { useAppSelector } from './hooks/hooks';
+import { useRoutes } from 'react-router-dom';
+import { selectTheme } from './store/theme/themeSlice';
+import { themeNames } from './store/theme/themeSlice.contracts';
 
 function App() {
-  return (
-      <div>
-        <CssBaseline />
-        <Box
-            height="100vh"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            flexDirection="column"
-        >
-          <Paper
-              elevation={3}
-              sx={{ padding: "1rem", backgroundColor: "secondary.light" }}
-          >
-            <Typography color="primary.dark" variant="h1">
-              Starter App
-            </Typography>
-          </Paper>
-        </Box>
-      </div>
-  );
+    const content = useRoutes(router);
+    const theme = useAppSelector(selectTheme);
+
+    return (
+        <ThemeProvider>
+            <CssBaseline/>
+            <ToastContainer hideProgressBar={true} theme={theme === themeNames.dark ? 'dark' : 'light'}/>
+            {content}
+        </ThemeProvider>
+    );
 }
 
 export default App;
