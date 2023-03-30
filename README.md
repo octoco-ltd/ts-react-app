@@ -5,6 +5,7 @@
 1. run `yarn install`
 2. run `yarn start`
 3. Ensure your IDE is configured for ESLint using the `eslintrc.json` file
+4. run `yarn storybook` in root to run storybook on your localhost (default port: 6006)
 
 ### What is this repository for? ###
 
@@ -27,11 +28,12 @@
 * [React Router](https://v5.reactrouter.com/web/guides/quick-start) for routing
 * [Toast](https://ireade.github.io/Toast.js/) for messages
 * [Axios](https://axios-http.com/docs/intro) for the http client, with a custom base api service as implemented and reused by Octoco
+* [Storybook](https://storybook.js.org/) for building UI components and pages in isolation. It streamlines UI development, testing, and documentation.
 
 ### Extras / Variations
 * [NextJS](https://nextjs.org/) as the framework where there is a need for server-side rendering, more static sites etc
 * Calvin's Custom Regex Implementation for validation
-* Material UI as one package for various functions (styling, forms, wizards, validation,  notifications, prebuilt components)
+* Material UI as one package for various functions (styling, forms, wizards, validation, notifications, prebuilt components)
 
 ### Contribution guidelines ###
 * Anyone can contribute 🥳 more feedback is always better
@@ -55,4 +57,3 @@
 ### Other Cool Stuff
 * [Mzansi Data](https://octoco.mzansidata.co.za) is a white label app octoco built using material ui
 * [Infisical](https://infisical.com/) for management of environment variables
-* [Storybook](https://storybook.js.org/) for building UI components and pages in isolation. It streamlines UI development, testing, and documentation.
