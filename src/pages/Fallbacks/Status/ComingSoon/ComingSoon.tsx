@@ -57,7 +57,7 @@ const ButtonNotify = styled(Button)(
 `,
 );
 
-function StatusComingSoon() {
+export function StatusComingSoon() {
   return (
     <>
       <Helmet>

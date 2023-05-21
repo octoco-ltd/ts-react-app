@@ -1,4 +1,4 @@
-import { IRegexField, RegexPatterns } from '../../constants/regex';
+import { IRegexField, RegexPatterns } from '../../../constants/regex';
 
 interface FieldTypes {
     value: string;
@@ -34,7 +34,7 @@ interface IAction {
     payload: string;
 }
 
-export const formReducer = (state: typeof initialState, action: IAction) => {
+export const authFormReducer = (state: typeof initialState, action: IAction) => {
     const payload = action.payload;
     let errorObj = { valid: true, error: '' };
     if (!payload) {

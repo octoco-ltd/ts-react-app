@@ -1,10 +1,12 @@
 import { configureStore, combineReducers, AnyAction } from '@reduxjs/toolkit';
 import themeSlice from './theme/themeSlice';
 import userSlice from './user/userSlice';
+import { pokemonApi } from '../services/pokemon'
 
 const combinedReducer = combineReducers({
   theme: themeSlice,
-  user: userSlice
+  user: userSlice,
+  [pokemonApi.reducerPath]: pokemonApi.reducer,
 });
 
 const rootReducer = (state: any, action: AnyAction) => {

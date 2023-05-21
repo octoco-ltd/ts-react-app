@@ -1,12 +1,12 @@
 import React, { useReducer, useState } from 'react';
 import { Card, CardContent, Box, TextField, InputAdornment, Tooltip, IconButton } from '@mui/material';
-import globalStyles from '../../constants/globalStyles';
-import { formReducer, initialState, actionTypes } from './contracts';
+import globalStyles from '../../../../constants/globalStyles';
+import { authFormReducer, initialState, actionTypes } from '../../reducers/authFormReducer';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
-const InputPage = () => {
+export const Login = () => {
     const [loading, setLoading] = useState(false);
-    const [state, dispatch] = useReducer(formReducer, initialState);
+    const [state, dispatch] = useReducer(authFormReducer, initialState);
     const [showPassword, setShowPassword] = useState(false);
 
     const handleClickShowPassword = () => setShowPassword(prevState => !prevState);
@@ -17,43 +17,11 @@ const InputPage = () => {
                 <Box
                     component='form'
                     sx={{
-                        '& .MuiTextField-root': { m: 1, width: '25ch' },
+                        '& .MuiTextField-root': { width: '25ch' },
                     }}
                     noValidate
                     autoComplete='off'
                 >
-                    <div>
-                        <TextField
-                            required
-                            id='outlined-required'
-                            label='First Name'
-                            style={globalStyles.textField}
-                            autoComplete={'given-name'}
-                            value={state.firstName.value}
-                            error={!state.firstName.valid}
-                            helperText={state.firstName.error}
-                            disabled={loading}
-                            onChange={(event) =>
-                                dispatch({ type: actionTypes.FIRSTNAME, payload: event.target.value })
-                            }
-                        />
-                    </div>
-                    <div>
-                        <TextField
-                            required
-                            id='outlined-required'
-                            label='Last Name'
-                            disabled={loading}
-                            style={globalStyles.textField}
-                            autoComplete={'family-name'}
-                            value={state.lastName.value}
-                            error={!state.lastName.valid}
-                            helperText={state.lastName.error}
-                            onChange={(event) =>
-                                dispatch({ type: actionTypes.LASTNAME, payload: event.target.value })
-                            }
-                        />
-                    </div>
                     <div>
                         <TextField
                             required
@@ -105,4 +73,4 @@ const InputPage = () => {
     );
 };
 
-export default InputPage;
+

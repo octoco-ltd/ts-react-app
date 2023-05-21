@@ -1,10 +1,12 @@
 import React from 'react';
 import { HomeWrapper } from './Home.styles';
 import { Helmet } from 'react-helmet-async';
-import { Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import WelcomeComponent from './components/WelcomeComponent';
+import { Table } from 'src/components/Table/Table';
+import ListPokemon from 'src/features/pokemon/components/listPokemon/ListPokemon';
 
-const HomePage = () => {
+const HomePage = () => {    
     return (
         <HomeWrapper>
             <Helmet>
@@ -12,6 +14,7 @@ const HomePage = () => {
             </Helmet>
             <Container maxWidth='lg'>
                 <WelcomeComponent />
+                <ListPokemon />
             </Container>
         </HomeWrapper>
     );

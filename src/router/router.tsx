@@ -14,14 +14,15 @@ const Loader = (Component: FC) => (props: any) =>
     );
 
 // Pages
-const Home = Loader(lazy(() => import('src/pages/Home')));
-const Input = Loader(lazy(() => import('src/pages/Input')));
+const Home = Loader(lazy(() => import('src/pages/Home/Home')));
+const Register = Loader(lazy(() => import('src/pages/Register/Register')));
+const Login = Loader(lazy(() => import('src/pages/Login/Login')));
 
 // Status
-const Status404 = Loader(lazy(() => import('src/components/Fallbacks/Status/Status404')));
-const Status500 = Loader(lazy(() => import('src/components/Fallbacks/Status/Status500')));
-const StatusComingSoon = Loader(lazy(() => import('src/components/Fallbacks/Status/ComingSoon')));
-const StatusMaintenance = Loader(lazy(() => import('src/components/Fallbacks/Status/Maintenance')));
+const Status404 = Loader(lazy(() => import('src/pages/Fallbacks/Status/Status404/Status404')));
+const Status500 = Loader(lazy(() => import('src/pages/Fallbacks/Status/Status500/Status500')));
+const StatusComingSoon = Loader(lazy(() => import('src/pages/Fallbacks/Status/ComingSoon/ComingSoon')));
+const StatusMaintenance = Loader(lazy(() => import('src/pages/Fallbacks/Status/Maintenance/Maintenance')));
 
 const routes: RouteObject[] = [
     {
@@ -36,6 +37,14 @@ const routes: RouteObject[] = [
         children: [
             {
                 path: '/',
+                element: <Navigate to={pages.home.path} replace/>,
+            },
+            {
+                path: '/register',
+                element: <Register to={pages.home.path} replace/>,
+            },
+            {
+                path: '/login',
                 element: <Navigate to={pages.home.path} replace/>,
             },
             {
@@ -92,10 +101,6 @@ const routes: RouteObject[] = [
             {
                 path: pages.home.name,
                 element: <Home/>,
-            },
-            {
-                path: pages.input.name,
-                element: <Input/>,
             },
         ],
     },

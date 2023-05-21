@@ -3,7 +3,11 @@ import { RootState } from '../store';
 import { IUser, IUserSlice } from './userSlice.contracts';
 
 const initialState: IUserSlice = {
-  user: null
+  user: null,
+  status: 'idle',
+  authType: null,
+  accessToken: null,
+  refreshToken: null,
 };
 
 const userSlice = createSlice({
