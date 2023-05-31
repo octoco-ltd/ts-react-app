@@ -1,8 +1,18 @@
-import React from 'react'
+import { Grid } from '@mui/material';
+import { Login } from 'src/features/authentication/components/login';
 
 export const LoginPage = () => {
   return (
-    <div>Login</div>
+    <Grid container 
+      // direction="column"
+      alignItems="center"
+      justifyContent="center"
+      sx={{ minHeight: '70vh' }}
+    >
+      <Grid item md={4}>
+        <Login />
+      </Grid>
+    </Grid>
   )
 }
 

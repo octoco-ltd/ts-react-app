@@ -5,6 +5,8 @@ import SidebarLayout from 'src/layouts/SidebarLayout';
 import BaseLayout from 'src/layouts/BaseLayout';
 import SuspenseLoader from 'src/components/SuspenseLoader';
 import pages from './routes';
+import AuthGuard from 'src/Guards/authGuard/AuthGuard';
+import Unverified from 'src/pages/Fallbacks/Status/Unverified/Unverified';
 
 const Loader = (Component: FC) => (props: any) =>
     (
@@ -40,16 +42,25 @@ const routes: RouteObject[] = [
                 element: <Navigate to={pages.home.path} replace/>,
             },
             {
-                path: '/register',
-                element: <Register to={pages.home.path} replace/>,
-            },
-            {
-                path: '/login',
-                element: <Navigate to={pages.home.path} replace/>,
-            },
-            {
                 path: '/home',
                 element: <Navigate to={pages.home.path} replace/>,
+            },
+            {
+                path: pages.auth.root,
+                children: [
+                    {
+                        path: '',
+                        element: <Login />,
+                    },
+                    {
+                        path: pages.auth.login.name,
+                        element: <Login />,
+                    },
+                    {
+                        path: pages.auth.register.name,
+                        element: <Register/>,
+                    },
+                ]
             },
             {
                 path: pages.status.root,
@@ -57,6 +68,10 @@ const routes: RouteObject[] = [
                     {
                         path: '',
                         element: <Navigate to="404" replace/>,
+                    },
+                    {
+                        path: pages.status.unverified.name,
+                        element: <Unverified/>,
                     },
                     {
                         path: pages.status.status404.name,
@@ -91,7 +106,9 @@ const routes: RouteObject[] = [
             /**
              * All children with this element will have a Sidebar and top Navbar
              */
-            <SidebarLayout/>
+            <AuthGuard>
+                <SidebarLayout/>
+            </AuthGuard>
         ),
         children: [
             {

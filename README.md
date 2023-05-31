@@ -57,3 +57,20 @@
 ### Other Cool Stuff
 * [Mzansi Data](https://octoco.mzansidata.co.za) is a white label app octoco built using material ui
 * [Infisical](https://infisical.com/) for management of environment variables
+
+TODO:
+//protected routes
+//index exports
+//interfaces for clients (auth)
+//rbac -> CASL
+//refresh token //get new token
+//notification (snackbar / toast)
+//check to see if env vars are correct
+//feature flags
+//unverified
+//login 
+//register
+//table
+//api service (RTK)
+//use auth hook
+//move all auth services to async thunk

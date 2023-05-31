@@ -1,11 +1,11 @@
 export interface IUserSlice {
-    user: IUser | null,
-    status: 'authenticated' | 'error' | 'idle' | 'loading'
-    authType: 'firebase' | 'cognito' | null
+    user: any | null, //IUser
+    status: 'authenticated' | 'error' | 'idle' | 'loading' | 'registered'
     accessToken: string | null,
     refreshToken: string | null,
+    error: null | undefined | string,
 }
 
-export interface IUser {
-    id: string;
-}
+// export interface IUser {
+    
+// }

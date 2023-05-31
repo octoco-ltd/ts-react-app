@@ -1,10 +1,25 @@
 const pages = {
+    auth: {
+        root: 'auth',
+        login: {
+            name: 'login',
+            path: '/auth/login'
+        },
+        register: {
+            name: 'register',
+            path: '/auth/register'
+        },
+    },
     home: {
         name: 'home',
         path: '/sidebar/home'
     },
     status: {
         root: 'status',
+        unverified: {
+            name: 'unverified',
+            path: '/status/unverified'
+        },
         statusComingSoon: {
             name: 'coming-soon',
             path: '/status/coming-soon'
@@ -21,11 +36,7 @@ const pages = {
             name: '500',
             path: '/status/500'
         }
-    },
-    input: {
-        name: 'input',
-        path: '/sidebar/input'
-    },
+    }
 }
 
 export default pages;

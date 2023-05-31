@@ -1,8 +1,18 @@
-import React from 'react'
+import { Grid } from '@mui/material'
+import { Register } from 'src/features/authentication/components/register'
 
 export const RegisterPage = () => {
   return (
-    <div>Register</div>
+    <Grid container 
+      // direction="column"
+      alignItems="center"
+      justifyContent="center"
+      sx={{ minHeight: '70vh' }}
+    >
+      <Grid item md={4}>
+        <Register />
+      </Grid>
+    </Grid>
   )
 }
 

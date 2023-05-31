@@ -1,8 +1,10 @@
-import React, { useReducer, useState } from 'react';
-import { Card, CardContent, Box, TextField, InputAdornment, Tooltip, IconButton } from '@mui/material';
-import globalStyles from '../../../../constants/globalStyles';
-import { authFormReducer, initialState, actionTypes } from '../../reducers/authFormReducer';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Box, Button, Card, CardActions, CardContent, Container, IconButton, InputAdornment, TextField, Tooltip, Typography } from '@mui/material';
+import { useReducer, useState } from 'react';
+import globalStyles from '../../../../constants/globalStyles';
+import { actionTypes, authFormReducer, initialState } from '../../reducers/authFormReducer';
+import { registerWithEmailAndPassword } from '../../authActions/firebase/registerWithEmailAndPassword';
+import store from 'src/store/store';
 
 export const Register = () => {
     const [loading, setLoading] = useState(false);
@@ -11,15 +13,33 @@ export const Register = () => {
 
     const handleClickShowPassword = () => setShowPassword(prevState => !prevState);
 
+    const registerUser = async (e: React.SyntheticEvent) =>{
+        e.preventDefault();
+        console.log(state)
+        try {
+            store.dispatch(registerWithEmailAndPassword({
+                email: state.email.value,
+                password: state.password.value,
+            }))
+          } catch (err) {
+            console.error(err);
+          }
+    }
+
     return (
-        <Card sx={ globalStyles.card }>
+        <Card sx={ {...globalStyles.card, textAlign: 'center'} }>
+            <Container maxWidth='xs' >
+                <Typography variant='h2' sx={{ mt: 4, mb: 2, textAlign: 'center' }}>
+                    Register
+                </Typography>
+            </Container>
             <CardContent style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Box
                     component='form'
+                    onSubmit={registerUser}
                     sx={{
                         '& .MuiTextField-root': { width: '25ch' },
                     }}
-                    noValidate
                     autoComplete='off'
                 >
                     <div>
@@ -99,6 +119,11 @@ export const Register = () => {
                             }}
                         />
                     </div>
+                    <CardActions sx={{justifyContent:'center'}}>
+                        <Button variant='outlined' type="submit">
+                            Register
+                        </Button>
+                    </CardActions>
                 </Box>
             </CardContent>
         </Card>

@@ -1,7 +1,7 @@
 import { configureStore, combineReducers, AnyAction } from '@reduxjs/toolkit';
 import themeSlice from './theme/themeSlice';
 import userSlice from './user/userSlice';
-import { pokemonApi } from '../services/pokemon'
+import { pokemonApi } from '../features/pokemon/services/pokemon'
 
 const combinedReducer = combineReducers({
   theme: themeSlice,
@@ -18,7 +18,12 @@ const rootReducer = (state: any, action: AnyAction) => {
 };
 
 const store = configureStore({
+  devTools: process.env.REACT_APP_DEPLOYMENT_ENV !== 'production',
   reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }).concat(
+      pokemonApi.middleware,
+    ),
 });
 
 export default store;
