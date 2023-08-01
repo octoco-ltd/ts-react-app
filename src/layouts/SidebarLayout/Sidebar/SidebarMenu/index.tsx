@@ -10,6 +10,8 @@ import { Box, Button, List, ListItem, ListSubheader, styled } from '@mui/materia
 import { NavLink as RouterLink } from 'react-router-dom';
 import { SidebarContext } from 'src/contexts/SidebarContext';
 import pages from '../../../../router/routes';
+import UserInfo from 'src/components/UserInfo/UserInfo';
+import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 
 const MenuWrapper = styled(Box)(
   ({ theme }) => `
@@ -158,6 +160,15 @@ function SidebarMenu() {
       <MenuWrapper>
         <List component='div'>
           <SubMenuWrapper>
+                <List component='div'>
+                    <ListItem component='div'>
+                        <Box textAlign='center'>
+                            <UserInfo />
+                        </Box>
+                    </ListItem>
+                </List>
+          </SubMenuWrapper>
+          <SubMenuWrapper>
             <List component='div'>
               <ListItem component='div'>
                 <Button
@@ -168,6 +179,17 @@ function SidebarMenu() {
                   startIcon={<HomeOutlined />}
                 >
                   Home
+                </Button>
+              </ListItem>
+              <ListItem component='div'>
+                <Button
+                  disableRipple
+                  component={RouterLink}
+                  onClick={closeSidebar}
+                  to='/profile/view/current-user'
+                  startIcon={<PermIdentityOutlinedIcon />}
+                >
+                  Profile
                 </Button>
               </ListItem>
             </List>

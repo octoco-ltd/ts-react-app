@@ -5,6 +5,7 @@ import {
     createUserWithEmailAndPassword,
     sendEmailVerification,
 } from 'firebase/auth';
+import { env } from 'src/env';
 
 export const registerWithEmailAndPassword = createAsyncThunk(
     'user/registerWithEmailAndPassword',
@@ -19,9 +20,9 @@ export const registerWithEmailAndPassword = createAsyncThunk(
                 params.email,
                 params.password
             );
-            console.log(process.env.REACT_APP_APP_BASE_URL)
+            console.log(env.REACT_APP_APP_BASE_URL)
             await sendEmailVerification(res.user, {
-                url: `${process.env.REACT_APP_APP_BASE_URL}/auth/login`,
+                url: `${env.REACT_APP_APP_BASE_URL}/auth/login`,
             });
             return {
                 user: res.user,

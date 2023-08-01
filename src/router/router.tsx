@@ -7,6 +7,7 @@ import SuspenseLoader from 'src/components/SuspenseLoader';
 import pages from './routes';
 import AuthGuard from 'src/Guards/authGuard/AuthGuard';
 import Unverified from 'src/pages/Fallbacks/Status/Unverified/Unverified';
+import ViewProfile from 'src/features/profile/viewProfile/ViewProfile';
 
 const Loader = (Component: FC) => (props: any) =>
     (
@@ -28,24 +29,24 @@ const StatusMaintenance = Loader(lazy(() => import('src/pages/Fallbacks/Status/M
 
 const routes: RouteObject[] = [
     {
-        /**
-         * This is the root path API_URL
-         */
         path: '',
-        /**
-         * This is a basic container element without any Navbars or Sidebars
-         */
         element: <BaseLayout/>,
+        /**
+        * All children within this element will NOT have a Sidebar and top Navbar
+        * All children within this element does not need to be authenticated to access
+        */
         children: [
+            //#region Base
             {
+                //Navigate to home when base routed to base path
                 path: '/',
                 element: <Navigate to={pages.home.path} replace/>,
             },
+            //#endregion Base
+            //#region Auth
             {
-                path: '/home',
-                element: <Navigate to={pages.home.path} replace/>,
-            },
-            {
+                //All authentication routes
+                //No navbars are shown as the user is not logged in
                 path: pages.auth.root,
                 children: [
                     {
@@ -62,7 +63,10 @@ const routes: RouteObject[] = [
                     },
                 ]
             },
+            //#endregion Auth
+            //#region Status
             {
+                //All status routes
                 path: pages.status.root,
                 children: [
                     {
@@ -91,34 +95,55 @@ const routes: RouteObject[] = [
                     },
                 ],
             },
+            //#endregion Status
+            //#region NotFound
             {
                 path: '*',
                 element: <Status404/>,
             },
+            //#endregion NotFound
         ],
     },
     {
-        /**
-         * This is a sub path. All children element are located at API_URL/sidebar/{children}
-         */
-        path: 'sidebar',
+        path: '',
         element: (
             /**
              * All children with this element will have a Sidebar and top Navbar
+             * AuthGuard checks that the user is logged in before granting access to its children pages
              */
             <AuthGuard>
                 <SidebarLayout/>
             </AuthGuard>
         ),
         children: [
+            //#region Base
             {
                 path: '',
                 element: <Navigate to={pages.home.name} replace/>,
             },
+            //#endregion Base
+            //#region Home
             {
                 path: pages.home.name,
                 element: <Home/>,
             },
+            //#endregion Home
+            //#region Profile
+            {
+                path: pages.profile.root,
+                children: [
+                    {
+                        path: pages.profile.view.path,
+                        element: <ViewProfile/>,
+                    },
+                    {
+                        path: pages.profile.edit.path,
+                        element: <Home/>,
+                    }
+                ]
+                
+            },
+            //#endregion Profile
         ],
     },
 ];

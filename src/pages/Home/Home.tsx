@@ -5,6 +5,7 @@ import { Box, Container } from '@mui/material';
 import WelcomeComponent from './components/WelcomeComponent';
 import { Table } from 'src/components/Table/Table';
 import ListPokemon from 'src/features/pokemon/components/listPokemon/ListPokemon';
+import UserAvatar from 'src/components/avatar/UserAvatar';
 
 const HomePage = () => {    
     return (

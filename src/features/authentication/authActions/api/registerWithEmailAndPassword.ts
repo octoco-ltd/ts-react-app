@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { env } from 'src/env'
 
 // authActions.js
 export const registerWithEmailAndPassword = createAsyncThunk(
@@ -17,7 +18,7 @@ export const registerWithEmailAndPassword = createAsyncThunk(
             // Send API call to login
             // This can change to FE login if a basic implementation is required
             const { data } = await axios.post(
-                `${process.env.REACT_APP_BASE_API_URL}/api/user/register`,
+                `${env.REACT_APP_BASE_API_URL}/api/user/register`,
                 { email, password },
                 config
             )

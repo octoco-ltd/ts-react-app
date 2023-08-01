@@ -15,7 +15,6 @@ export default function AuthGuard({ children }: { children: JSX.Element }) {
     const auth: string | null = getAuthStorage();
     const authSlice: IUserSlice | null = auth ? JSON.parse(auth) : null
 
-    console.log(user)
     if(isLoading){
         return <Suspense fallback={<SuspenseLoader/>}>
             {children}

@@ -2,14 +2,14 @@ import { GridColDef, GridRowsProp } from '@mui/x-data-grid';
 import { FC, ReactElement, useEffect, useState } from 'react';
 import Table from 'src/components/Table/Table';
 import useRememberTable from 'src/hooks/useRememberTable';
-import { useGetAllPokemonQuery } from 'src/features/pokemon/services/pokemon';
+import { useGetAllUsersQuery } from 'src/services/restApi/pokemon';
 
 export default function ListPokemon() {
   const { paginationModel, setPaginationModel } = useRememberTable();
   const [rows, setRows] = useState<GridRowsProp>([]);
   const [columns, setColumns] = useState<GridColDef[]>([]);
   const { data, error, isLoading, refetch, isFetching, isSuccess } =
-    useGetAllPokemonQuery(paginationModel);
+    useGetAllUsersQuery(paginationModel);
 
   useEffect(() => {
     if (isSuccess && data) {

@@ -7,7 +7,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { styled } from '@mui/material/styles';
 
 const GridWrapper = styled(Grid)(
-  ({ theme }) => `
+    ({ theme }) => `
     background: ${theme.colors.gradients.black1};
 `,
 );
@@ -25,59 +25,73 @@ const MainContent = styled(Box)(
 );
 
 const TypographyPrimary = styled(Typography)(
-  ({ theme }) => `
+    ({ theme }) => `
       color: ${theme.colors.alpha.white[100]};
 `,
 );
 
 const TypographySecondary = styled(Typography)(
-  ({ theme }) => `
+    ({ theme }) => `
       color: ${theme.colors.alpha.white[70]};
 `,
 );
 
-function Status500() {
-  const [pending, setPending] = useState(false);
-  function handleClick() {
-    setPending(true);
-  }
+function Status500({ error, resetErrorBoundary }: any) {
+    const [pending, setPending] = useState(false);
+    function handleClick() {
+        setPending(true);
+        resetErrorBoundary();
+    }
 
-  return (
-    <>
-      <Helmet>
-        <title>Status - 500</title>
-      </Helmet>
-      <MainContent>
-        <Container maxWidth='md'>
-          <Grid xs={12} md={6} alignItems='center' display='flex' justifyContent='center' item>
-            <Container maxWidth='sm'>
-              <Box textAlign='center'>
-                <img alt='500' height={260} src='/static/images/status/500.svg' />
-                <Typography variant='h2' sx={{ my: 2 }}>
-                  There was an error, please try again later
-                </Typography>
-                <Typography variant='h4' color='text.secondary' fontWeight='normal' sx={{ mb: 4 }}>
-                  The server encountered an internal error and was not able to complete your request
-                </Typography>
-                <LoadingButton
-                  onClick={handleClick}
-                  loading={pending}
-                  variant='outlined'
-                  color='primary'
-                  startIcon={<RefreshTwoToneIcon />}
-                >
-                  Refresh view
-                </LoadingButton>
-                <Button href='/home' variant='contained' sx={{ ml: 1 }}>
-                  Go back
-                </Button>
-              </Box>
-            </Container>
-          </Grid>
-        </Container>
-      </MainContent>
-    </>
-  );
+    return (
+        <>
+            <Helmet>
+                <title>Status - 500</title>
+            </Helmet>
+            <MainContent>
+                <Container maxWidth='md'>
+                    <Grid
+                        xs={12}
+                        md={6}
+                        alignItems='center'
+                        display='flex'
+                        justifyContent='center'
+                        item
+                    >
+                        <Container maxWidth='sm'>
+                            <Box textAlign='center'>
+                                <img alt='500' height={260} src='/static/images/status/500.svg' />
+                                <Typography variant='h2' sx={{ my: 2 }}>
+                                    There was an error, please try again later
+                                </Typography>
+                                <Typography
+                                    variant='h4'
+                                    color='text.secondary'
+                                    fontWeight='normal'
+                                    sx={{ mb: 4 }}
+                                >
+                                    The server encountered an internal error and was not able to
+                                    complete your request
+                                </Typography>
+                                <LoadingButton
+                                    onClick={handleClick}
+                                    loading={pending}
+                                    variant='outlined'
+                                    color='primary'
+                                    startIcon={<RefreshTwoToneIcon />}
+                                >
+                                    Refresh view
+                                </LoadingButton>
+                                <Button href='/home' variant='contained' sx={{ ml: 1 }}>
+                                    Go back
+                                </Button>
+                            </Box>
+                        </Container>
+                    </Grid>
+                </Container>
+            </MainContent>
+        </>
+    );
 }
 
 export default Status500;

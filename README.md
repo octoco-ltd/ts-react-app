@@ -24,6 +24,8 @@
 * [Yup](https://github.com/jquense/yup) for validation
 * [Typescript](https://www.typescriptlang.org/) for the language and strong typing
 * [Firebase](https://firebase.google.com/) for auth, nosql storage and analytics
+* [Auth0](https://firebase.google.com/) for auth
+* [AWS Cognito](https://firebase.google.com/) for auth
 * [Material UI](https://mui.com/) for styling
 * [React Router](https://v5.reactrouter.com/web/guides/quick-start) for routing
 * [Toast](https://ireade.github.io/Toast.js/) for messages
@@ -74,3 +76,6 @@ TODO:
 //api service (RTK)
 //use auth hook
 //move all auth services to async thunk
+//mobile bottom bar
+//breadcrumbs
+//useConfirmLeave

@@ -12,7 +12,18 @@ const pages = {
     },
     home: {
         name: 'home',
-        path: '/sidebar/home'
+        path: '/home'
+    },
+    profile: {
+        root: 'profile',
+        view: {
+            name: 'profile',
+            path: '/profile/view/:userId'
+        },
+        edit: {
+            name: 'profile',
+            path: '/profile/edit/:userId'
+        }
     },
     status: {
         root: 'status',
