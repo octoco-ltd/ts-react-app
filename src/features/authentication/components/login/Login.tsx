@@ -1,20 +1,21 @@
-import React, { useEffect, useReducer, useState } from 'react';
-import { Card, CardContent, Box, TextField, InputAdornment, Tooltip, IconButton, Container, Typography, Button, CardActions } from '@mui/material';
-import globalStyles from '../../../../constants/globalStyles';
-import { loginFormReducer, initialState, actionTypes } from '../../reducers/loginFormReducer';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import store, { RootState } from 'src/store/store';
-import { loginWithEmailAndPassword } from '../../authActions/firebase/loginWithEmailAndPassword';
+import { Box, Button, Card, CardActions, CardContent, Container, IconButton, InputAdornment, TextField, Tooltip, Typography } from '@mui/material';
+import React, { useEffect, useReducer, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { NetworkStatusEnums } from 'src/helpers/authHelper';
 import { useNavigate } from 'react-router-dom';
+import store from 'src/store/store';
 import { IUserSlice } from 'src/store/user/userSlice.contracts';
+import { NetworkStatusEnums } from 'src/utils/enums/networkSTatusEnums';
+import globalStyles from '../../../../utils/constants/globalStyles';
+import { useAuth } from '../../context/AuthContext';
+import { actionTypes, initialState, loginFormReducer } from '../../reducers/loginFormReducer';
 
 export const Login = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const [state, dispatch] = useReducer(loginFormReducer, initialState);
     const [showPassword, setShowPassword] = useState(false);
+    const authService = useAuth();
 
     const handleClickShowPassword = () => setShowPassword(prevState => !prevState);
 
@@ -30,15 +31,11 @@ export const Login = () => {
 
     const loginUser = async (e: React.SyntheticEvent) =>{
         e.preventDefault();
-        console.log(state)
         try {
-            store.dispatch(loginWithEmailAndPassword({
-                email: state.email.value,
-                password: state.password.value,
-            }))
-          } catch (err) {
+            store.dispatch(authService.signInWithEmailAndPassword(state.email.value, state.password.value))
+        } catch (err) {
             console.error(err);
-          }
+        }
     }
 
     return (

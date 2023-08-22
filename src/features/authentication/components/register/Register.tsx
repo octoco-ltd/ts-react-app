@@ -1,29 +1,26 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Box, Button, Card, CardActions, CardContent, Container, IconButton, InputAdornment, TextField, Tooltip, Typography } from '@mui/material';
 import { useReducer, useState } from 'react';
-import globalStyles from '../../../../constants/globalStyles';
-import { actionTypes, authFormReducer, initialState } from '../../reducers/authFormReducer';
-import { registerWithEmailAndPassword } from '../../authActions/firebase/registerWithEmailAndPassword';
 import store from 'src/store/store';
+import globalStyles from '../../../../utils/constants/globalStyles';
+import { useAuth } from '../../context/AuthContext';
+import { actionTypes, authFormReducer, initialState } from '../../reducers/authFormReducer';
 
 export const Register = () => {
     const [loading, setLoading] = useState(false);
     const [state, dispatch] = useReducer(authFormReducer, initialState);
     const [showPassword, setShowPassword] = useState(false);
+    const authService = useAuth();
 
     const handleClickShowPassword = () => setShowPassword(prevState => !prevState);
 
     const registerUser = async (e: React.SyntheticEvent) =>{
         e.preventDefault();
-        console.log(state)
         try {
-            store.dispatch(registerWithEmailAndPassword({
-                email: state.email.value,
-                password: state.password.value,
-            }))
-          } catch (err) {
+            store.dispatch(authService.register(state.email.value, state.password.value))
+        } catch (err) {
             console.error(err);
-          }
+        }
     }
 
     return (

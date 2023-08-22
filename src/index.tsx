@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import store from './store/store';
 import { Provider } from 'react-redux';
 import { HelmetProvider } from 'react-helmet-async';
-import { SidebarProvider } from './contexts/SidebarContext';
+import { SidebarProvider } from './context/SidebarContext';
 import { BrowserRouter } from 'react-router-dom';
 import 'nprogress/nprogress.css';
 

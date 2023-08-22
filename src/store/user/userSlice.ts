@@ -1,10 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { loginWithEmailAndPassword } from 'src/features/authentication/clients/firebase/actions/loginWithEmailAndPassword';
+import { registerWithEmailAndPassword } from 'src/features/authentication/clients/firebase/actions/registerWithEmailAndPassword';
+import { persistAuth } from 'src/features/authentication/services/persistAuth';
 import { RootState } from '../store';
 import { IUserSlice } from './userSlice.contracts';
-import { loginWithEmailAndPassword } from 'src/features/authentication/authActions/firebase/loginWithEmailAndPassword';
-import { registerWithEmailAndPassword } from 'src/features/authentication/authActions/firebase/registerWithEmailAndPassword';
-import { removeAuthStorage, setAuthStorage } from 'src/features/authentication/services/setAuthStorage';
-import { persistAuth } from 'src/features/authentication/services/persistAuth';
 
 const initialState: IUserSlice = {
   user: null,
@@ -32,14 +31,11 @@ const userSlice = createSlice({
         state.status = 'loading'
       })
       .addCase(persistAuth.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.status = action.payload.status
         state.accessToken = action.payload.accessToken
         state.refreshToken = action.payload.refreshToken
         state.user = action.payload.user
         state.error = action.payload.error
-        setAuthStorage(state)
-
       })
       .addCase(persistAuth.rejected, (state, action) => {
         state.status = 'error'
@@ -47,7 +43,6 @@ const userSlice = createSlice({
         state.refreshToken = null
         state.user = null
         state.error = action.error.message
-        removeAuthStorage()
       })
       //###########################       Register       ###########################
       .addCase(registerWithEmailAndPassword.pending, (state, action) => {
@@ -73,7 +68,6 @@ const userSlice = createSlice({
         state.refreshToken = action.payload.refreshToken
         state.user = action.payload.user
         state.error = null
-        setAuthStorage(state)
       })
       .addCase(loginWithEmailAndPassword.rejected, (state, action) => {
         state.status = 'error'
@@ -81,7 +75,6 @@ const userSlice = createSlice({
         state.refreshToken = null
         state.user = null
         state.error = action.error.message
-        removeAuthStorage()
       })
   }
 }

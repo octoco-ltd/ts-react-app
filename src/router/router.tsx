@@ -26,6 +26,9 @@ const Status404 = Loader(lazy(() => import('src/pages/Fallbacks/Status/Status404
 const Status500 = Loader(lazy(() => import('src/pages/Fallbacks/Status/Status500/Status500')));
 const StatusComingSoon = Loader(lazy(() => import('src/pages/Fallbacks/Status/ComingSoon/ComingSoon')));
 const StatusMaintenance = Loader(lazy(() => import('src/pages/Fallbacks/Status/Maintenance/Maintenance')));
+const StatusSuccess = Loader(lazy(() => import('src/pages/Fallbacks/Status/Success/Success')));
+const StatusFailure = Loader(lazy(() => import('src/pages/Fallbacks/Status/Failure/Failure')));
+const StatusCancel = Loader(lazy(() => import('src/pages/Fallbacks/Status/Cancel/Cancel')));
 
 const routes: RouteObject[] = [
     {
@@ -92,6 +95,19 @@ const routes: RouteObject[] = [
                     {
                         path: pages.status.statusComingSoon.name,
                         element: <StatusComingSoon/>,
+                    },
+                    //TODO: Maybe make paths that shows status within the sidebars as well
+                    {
+                        path: pages.status.statusSuccess.name,
+                        element: <StatusSuccess/>,
+                    },
+                    {
+                        path: pages.status.statusFailure.name,
+                        element: <StatusFailure/>,
+                    },
+                    {
+                        path: pages.status.statusCancel.name,
+                        element: <StatusCancel/>,
                     },
                 ],
             },

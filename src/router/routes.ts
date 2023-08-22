@@ -46,6 +46,18 @@ const pages = {
         status500: {
             name: '500',
             path: '/status/500'
+        },
+        statusSuccess: {
+            name: 'success',
+            path: '/status/success'
+        },
+        statusFailure: {
+            name: 'failure',
+            path: '/status/failure'
+        },
+        statusCancel: {
+            name: 'cancel',
+            path: '/status/cancel'
         }
     }
 }

@@ -6,6 +6,11 @@ export const clientSchema = z.object({
     REACT_APP_APP_BASE_URL:z.string().nonempty(),
     REACT_APP_APP_NAME:z.string().nonempty(),
     REACT_APP_DEPLOYMENT_ENV:z.string().nonempty(),
+    REACT_APP_REDIRECT_SUCCESS:z.string().nonempty(),
+    REACT_APP_REDIRECT_FAILURE:z.string().nonempty(),
+    REACT_APP_REDIRECT_CANCEL:z.string().nonempty(),
+    REACT_APP_SENTRY_DSN:z.string().nonempty(),
+    REACT_APP_SENTRY_AUTH_TOKEN:z.string().nonempty(),
 });
 
 const _clientEnv = clientSchema.safeParse(process.env);

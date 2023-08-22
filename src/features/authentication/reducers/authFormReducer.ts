@@ -1,4 +1,4 @@
-import { IRegexField, RegexPatterns } from '../../../constants/regex';
+import { IRegexField, RegexPatterns } from '../../../utils/constants/regex';
 
 interface FieldTypes {
     value: string;

@@ -4,8 +4,9 @@ import { Helmet } from 'react-helmet-async';
 import { Box, Container } from '@mui/material';
 import WelcomeComponent from './components/WelcomeComponent';
 import { Table } from 'src/components/Table/Table';
-import ListPokemon from 'src/features/pokemon/components/listPokemon/ListPokemon';
+// import ListPokemon from 'src/features/pokemon/components/listPokemon/ListPokemon';
 import UserAvatar from 'src/components/avatar/UserAvatar';
+import { Dashboard } from 'src/features/dashboard';
 
 const HomePage = () => {    
     return (
@@ -15,7 +16,8 @@ const HomePage = () => {
             </Helmet>
             <Container maxWidth='lg'>
                 <WelcomeComponent />
-                <ListPokemon />
+                <Dashboard />
+                {/* <ListPokemon /> */}
             </Container>
         </HomeWrapper>
     );

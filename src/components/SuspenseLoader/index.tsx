@@ -1,8 +1,12 @@
 import { useEffect } from 'react';
 import NProgress from 'nprogress';
-import { Box, CircularProgress } from '@mui/material';
+import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 
-function SuspenseLoader() {
+interface Props {
+  message?: string;
+}
+
+function SuspenseLoader({ message }: Props) {
   useEffect(() => {
     NProgress.start();
 
@@ -24,7 +28,15 @@ function SuspenseLoader() {
       alignItems='center'
       justifyContent='center'
     >
-      <CircularProgress size={64} disableShrink thickness={3} />
+      <Stack 
+        justifyContent="center"
+        alignItems="center"
+        spacing={2}
+      >
+        <CircularProgress size={64} disableShrink thickness={3} />
+        <Typography variant='h2'>{message}</Typography>
+      </Stack>
+      
     </Box>
   );
 }

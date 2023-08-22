@@ -17,11 +17,11 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import UserAvatar from 'src/components/avatar/UserAvatar';
-import useGetUser from 'src/hooks/useGetUser';
+import useGetIsCurrentUser from 'src/hooks/useGetIsCurrentUser';
 
 export default function ViewProfile() {
     const { userId } = useParams();
-    const { isCurrentUser, validUser, user } = useGetUser({userId: userId ?? ''});
+    const { isCurrentUser, validUser, user } = useGetIsCurrentUser({userId: userId ?? ''});
     const navigate = useNavigate();
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

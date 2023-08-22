@@ -113,7 +113,7 @@ import ThemeSwitch from 'src/components/ThemeSwitch/ThemeSwitch';
     return (
       <OverviewWrapper>
         <Helmet>
-          <title>Reonet: Verify Email</title>
+          <title>Verify Email</title>
         </Helmet>
         <Container maxWidth='lg'>
           <Box display='flex' justifyContent='center' py={5} alignItems='center'>
