@@ -8,7 +8,7 @@ export interface AppAuthProvider {
     register(email: string, password:string): Promise<void>;
     resetPassword(): Promise<void>;
     verifyEmail(): Promise<void>;
-    getUser(): Promise<any | null>; //TODO: add user type
+    getUser(): any; //TODO: add user type
     getEmailVerified(): boolean;
     useAuthHook?(): any; //TODO: think about this
     persistAuth(userAuth: any): Promise<void>; //how to set this type UserCredential dynamically per client?
@@ -73,8 +73,8 @@ export class AuthService {
       await this.activeAuthProvider.signOut();
     }
   
-    async getUser() {
-      return await this.activeAuthProvider.getUser();
+    getUser() {
+      return this.activeAuthProvider.getUser();
     }
 
     async verifyEmail() {

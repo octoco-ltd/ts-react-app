@@ -11,6 +11,14 @@ export const clientSchema = z.object({
     REACT_APP_REDIRECT_CANCEL:z.string().nonempty(),
     REACT_APP_SENTRY_DSN:z.string().nonempty(),
     REACT_APP_SENTRY_AUTH_TOKEN:z.string().nonempty(),
+    REACT_APP_APP_COGNITO_USERPOOL_ID:z.string().nonempty(),
+    REACT_APP_APP_COGNITO_CLIENT_ID:z.string().nonempty(),
+    REACT_APP_FIREBASE_API_KEY:z.string().nonempty(),
+    REACT_APP_FIREBASE_AUTH_DOMAIN:z.string().nonempty(),
+    REACT_APP_FIREBASE_PROJECT_ID:z.string().nonempty(),
+    REACT_APP_FIREBASE_STORAGE_BUCKET:z.string().nonempty(),
+    REACT_APP_FIREBASE_MESSAGING_SENDER_ID:z.string().nonempty(),
+    REACT_APP_FIREBASE_APP_ID:z.string().nonempty(),
 });
 
 const _clientEnv = clientSchema.safeParse(process.env);

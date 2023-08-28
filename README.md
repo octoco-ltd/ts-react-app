@@ -6,6 +6,30 @@
 2. run `yarn start`
 3. Ensure your IDE is configured for ESLint using the `eslintrc.json` file
 4. run `yarn storybook` in root to run storybook on your localhost (default port: 6006)
+5. Add .env file
+   
+```
+REACT_APP_BASE_API_URL=https://pokeapi.co/api/v2/
+REACT_APP_APP_BASE_URL=http://localhost:3000
+REACT_APP_APP_NAME=baseRepo
+REACT_APP_DEPLOYMENT_ENV=development
+REACT_APP_REDIRECT_SUCCESS=http://localhost:3000/status/success
+REACT_APP_REDIRECT_FAILURE=http://localhost:3000/status/failure
+REACT_APP_REDIRECT_CANCEL=http://localhost:3000/status/cancel
+REACT_APP_SENTRY_AUTH_TOKEN=19bff3931ee8453987abc4da7dc5cbd57f759a25323d434c804e7ac0dffe92bc
+REACT_APP_SENTRY_DSN=
+SENTRY_ORG=
+SENTRY_PROJECT=
+VERSION=`sentry-cli releases propose-version`
+REACT_APP_APP_COGNITO_USERPOOL_ID=
+REACT_APP_APP_COGNITO_CLIENT_ID=
+REACT_APP_FIREBASE_API_KEY=
+REACT_APP_FIREBASE_AUTH_DOMAIN=
+REACT_APP_FIREBASE_PROJECT_ID=
+REACT_APP_FIREBASE_STORAGE_BUCKET=
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=
+REACT_APP_FIREBASE_APP_ID=
+```
 
 ### What is this repository for? ###
 

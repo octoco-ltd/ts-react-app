@@ -29,6 +29,7 @@
     "@types/node": "^16.11.65",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
+    "amazon-cognito-identity-js": "^6.3.5",
     "async-mutex": "^0.4.0",
     "axios": "^1.4.0",
     "dayjs": "^1.11.5",

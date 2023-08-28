@@ -5,6 +5,7 @@ import TopBar from './TopBar';
 import Widget from './Widget';
 import '/node_modules/react-grid-layout/css/styles.css';
 import '/node_modules/react-resizable/css/styles.css';
+import { IComponentList } from '../models/dashboardTypes';
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 // TODO: TYPES, make so that you can optionally give a list of components and layout, editable or not, move storage to the util/hook items, responsive layout
@@ -12,34 +13,59 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 // if you are a developer, you can always edit and get layout etc
 // build custom devops items
 // does not save removed items
-//remove button optional
+// remove button optional
 
-const initialLayouts = {
-  lg: [
-    { i: 'a', x: 0, y: 0, w: 1, h: 2 },
-    { i: 'b', x: 1, y: 0, w: 3, h: 2 },
-    { i: 'c', x: 4, y: 0, w: 1, h: 2 },
-    { i: 'd', x: 0, y: 2, w: 2, h: 2 },
-  ],
-};
+interface DashboardProps{
+  canEdit?: boolean //whether the user can move / remove /add the components around 
+  initialLayouts: ReactGridLayout.Layouts
+  componentList: IComponentList
+  heading: string
+  page: string
+}
 
-const originalItems = ['a', 'b', 'c', 'd'];
-
-export default function Content() {
-  const [items, setItems] = useState<any>(originalItems);
+export default function Content({initialLayouts, canEdit = true, componentList, heading, page}: DashboardProps) {
+  
+  const [items, setItems] = useState<any>(Object.keys(componentList));
   
   const onRemoveItem = (itemId: any) => {
     setItems(items.filter((i: any) => i !== itemId));
   };
+
   const onAddItem = (itemId: any) => {
     setItems([...items, itemId]);
   };
+
+  type LayoutKey = 'lg' | 'md' | 'sm' | 'xs' | 'xxs'; 
+  const layoutKeys: LayoutKey[] = Object.keys(initialLayouts) as LayoutKey[];
+
+  const modifyLayouts = (initialLayouts: any, layoutKeys: LayoutKey[]): Record<LayoutKey, any[]> => {
+    const modifiedLayouts: Record<LayoutKey, any[]> = layoutKeys.reduce(
+      (acc, layoutKey) => {
+        acc[layoutKey] = initialLayouts[layoutKey].map((item: any) => ({ ...item, static: true }));
+        return acc;
+      },
+      {} as Record<LayoutKey, any[]>
+    );
+  
+    return modifiedLayouts;
+  }
+
+  const getInitLayout = () => {
+    if(canEdit){
+      return initialLayouts
+    }else{
+      return modifyLayouts(initialLayouts, layoutKeys)
+    }
+  }
+
   const [layouts, setLayouts] = useState(
-    getFromLS('layouts') || initialLayouts,
+    getFromLS('layouts') || getInitLayout(),
   );
+
   const onLayoutChange = (_: any, allLayouts: any) => {
     setLayouts(allLayouts);
   };
+
   const onLayoutSave = () => {
     saveToLS('layouts', layouts);
   };
@@ -48,10 +74,9 @@ export default function Content() {
     let ls: any = {};
     if (localStorage) {
       try {
-        ls = JSON.parse(localStorage.getItem('rgl-8') ?? '') || {};
+        ls = JSON.parse(localStorage.getItem(page) ?? '') || {};
       } catch (e) {
-        console.log(e)
-        console.log('error')
+        // no item in local storage
       }
     }
     return ls[key];
@@ -60,14 +85,13 @@ export default function Content() {
   function saveToLS(key: any, value: any) {
     if (localStorage) {
       localStorage.setItem(
-        'rgl-8',
+        page,
         JSON.stringify({
           [key]: value,
         }),
       );
     }
   }
-  
   
   return (
     <>
@@ -76,31 +100,32 @@ export default function Content() {
         items={items}
         onRemoveItem={onRemoveItem}
         onAddItem={onAddItem}
-        originalItems={originalItems}
+        originalItems={Object.keys(componentList)}
+        heading={heading}
+        canEdit={canEdit}
       />
       <ResponsiveGridLayout
         className="layout"
         layouts={layouts}
         breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
         cols={{ lg: 12, md: 8, sm: 6, xs: 4, xxs: 2 }}
-        rowHeight={60}
+        rowHeight={80}
         onLayoutChange={onLayoutChange}
       >
-      {items.map((key: any) => (
-        <div
-          key={key}
-          className="widget"
-          data-grid={{ w: 3, h: 2, x: 0, y: Infinity }}
-        >
-          <Widget
-            id={key}
-            onRemoveItem={onRemoveItem}
-            backgroundColor="#867ae9"
-          />
-        </div>
-      ))}
-    </ResponsiveGridLayout>
+        {items.map((key: any) => (
+          <div
+            key={key}
+            className="widget"
+            data-grid={{ w: 3, h: 2, x: 0, y: Infinity }}
+          >
+            <Widget
+              id={key}
+              onRemoveItem={onRemoveItem}
+              component={componentList[key]}
+            />
+          </div>
+        ))}
+      </ResponsiveGridLayout>
     </>
-    
   );
 }

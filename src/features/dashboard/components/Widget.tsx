@@ -24,22 +24,13 @@ const useStyles = makeStyles({
   }
 });
 
-const widgetNames: any = {
-  a: 'A',
-  b: 'B',
-  c: 'C',
-  d: 'D'
-};
-export default function Widget({ id, onRemoveItem }: any) {
+export default function Widget({ id, onRemoveItem, component: Item }: any) {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
-      <div className={classes.header}>
-        <Typography variant="h6" gutterBottom>
-          {widgetNames[id]}
-        </Typography>
+      <div className={classes.body}>
+        <Item />
       </div>
-      <div className={classes.body} />
     </Card>
   );
 }

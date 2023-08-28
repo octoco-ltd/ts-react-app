@@ -2,13 +2,6 @@ import { Add, Edit } from '@mui/icons-material';
 import { IconButton, Popover, FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox, Box } from '@mui/material';
 import React from 'react';
 
-const widgetNames: any = {
-  a: 'A',
-  b: 'B',
-  c: 'C',
-  d: 'D'
-};
-
 export default function AddList({
   items,
   onRemoveItem,
@@ -59,7 +52,7 @@ export default function AddList({
           <FormControl component="fieldset">
             <FormLabel component="legend">Select Widgets</FormLabel>
             <FormGroup>
-              {originalItems.map((i: any) => (
+              {originalItems.map((i: any, index: number) => (
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -68,7 +61,7 @@ export default function AddList({
                       name={i}
                     />
                   }
-                  label={widgetNames[i]}
+                  label={originalItems[index]}
                   key={i}
                 />
               ))}

@@ -1,9 +1,7 @@
-import React from 'react';
-import Card from '@mui/material/Card';
-import { makeStyles } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 // import AddList from './AddList';
 import { Save } from '@mui/icons-material';
+import { Box, Typography } from '@mui/material';
 import AddList from './AddList';
 
 export default function TopBar({
@@ -11,21 +9,29 @@ export default function TopBar({
   items,
   onRemoveItem,
   onAddItem,
-  originalItems
+  originalItems,
+  heading,
+  canEdit
 }: any) {
 
-  
   return (
-    <Card>
-      <AddList
-        items={items}
-        onRemoveItem={onRemoveItem}
-        onAddItem={onAddItem}
-        originalItems={originalItems}
-      />
-      <IconButton aria-label="save" onClick={onLayoutSave}>
-        <Save />
-      </IconButton>
-    </Card>
+    <Box sx={{mx: 1, mt: 3}}>
+      <Typography variant='h1'>
+        {heading}
+      </Typography>
+      {canEdit &&
+        <>
+          <AddList
+            items={items}
+            onRemoveItem={onRemoveItem}
+            onAddItem={onAddItem}
+            originalItems={originalItems}
+          />
+          <IconButton aria-label="save" onClick={onLayoutSave}>
+            <Save />
+          </IconButton>
+        </>
+      }
+    </Box>
   );
 }

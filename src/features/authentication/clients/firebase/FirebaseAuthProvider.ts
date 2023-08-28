@@ -1,7 +1,6 @@
 import * as firebase from 'firebase/app';
-import { getAuth, signOut } from 'firebase/auth';
+import { User, getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { AuthStateHook, useAuthState } from 'react-firebase-hooks/auth';
-import { env } from 'src/env';
 import store from 'src/store/store';
 import { IUserSlice } from 'src/store/user/userSlice.contracts';
 import { AppAuthProvider } from '../../services/AuthenticationService';
@@ -16,10 +15,11 @@ export class FirebaseAuthProvider implements AppAuthProvider {
   
     constructor() {
         //initialize firebase
-        this.firebaseApp = firebase.initializeApp(firebaseConfig[env.REACT_APP_DEPLOYMENT_ENV]);
+        this.firebaseApp = firebase.initializeApp(firebaseConfig.config);
     }
 
-    async persistAuth(userAuth: any): Promise<void> {
+    //############################ PERSIST AUTH ############################
+    async persistAuth(userAuth: User): Promise<void> {
         const userSlice: IUserSlice = {
             user: userAuth,
             status: 'authenticated',
@@ -27,46 +27,63 @@ export class FirebaseAuthProvider implements AppAuthProvider {
             refreshToken: userAuth.refreshToken,
             error: null,
         }
-        store.dispatch(persistAuth({userAuth: userSlice}))
-        
+        store.dispatch(persistAuth({userAuth: userSlice})) 
     }
 
-    useAuthHook(): AuthStateHook {
-        const auth = getAuth()
-        return useAuthState(auth);
-    }
-    
+    //############################ SIGN IN ################################
     async signInWithEmailAndPassword(email: string, password:string): Promise<void> {
         store.dispatch(loginWithEmailAndPassword({email: email, password: password}))
     }
 
+    //############################ SIGN IN GOOGLE ##########################
     async signInWithGoogle(): Promise<void> {
         store.dispatch(signInWithGoogle({}))
     }
 
-    async register(email: string, password:string): Promise<void> {
-        store.dispatch(registerWithEmailAndPassword({email: email, password: password}));
+    //############################ GET USER ################################
+    async getUser(): Promise<any> {
+        const auth = getAuth()
+        return new Promise((resolve, reject) => {
+            onAuthStateChanged(auth,  (user) => {
+              if (user) {     
+                resolve(user);
+              } else {
+                reject(null);
+              }
+            });
+          });
     }
 
-    resetPassword(): Promise<void> {
-        throw new Error('Method not implemented.');
-    }
-
-    verifyEmail(): Promise<void> {
-        throw new Error('Method not implemented.');
-    }
-
-    getEmailVerified(): boolean {
-        return true; //TODO: Implement
-    }
-
+    //############################ LOG OUT #################################
     signOut(): void {
         const auth = getAuth()
         signOut(auth);
         window.location.href = '/auth/login';
     }
-    
-    getUser(): Promise<any> {
+
+    //############################ REGISTER #################################
+    async register(email: string, password:string): Promise<void> {
+        store.dispatch(registerWithEmailAndPassword({email: email, password: password}));
+    }
+
+    //############################ RESET PASS ###############################
+    resetPassword(): Promise<void> {
         throw new Error('Method not implemented.');
+    }
+
+    //############################ VERIFY EMAIL #############################
+    verifyEmail(): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+
+    //############################ GET VERIFY EMAIL #########################
+    getEmailVerified(): boolean {
+        return true; //TODO: Implement
+    }
+
+    //############################ AUTH HOOK ################################
+    useAuthHook(): AuthStateHook {
+        const auth = getAuth()
+        return useAuthState(auth);
     }
 }

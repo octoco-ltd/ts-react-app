@@ -20,5 +20,6 @@ export default function defineAbilityFor(userType: string) {
             cannot('create', 'users');  // Deny creating new user
             cannot('delete', 'users');  // Deny deleting users
         }
+        //Add other roles here
     });
 }
