@@ -1,8 +1,18 @@
 import IconButton from '@mui/material/IconButton';
-// import AddList from './AddList';
 import { Save } from '@mui/icons-material';
 import { Box, Typography } from '@mui/material';
 import AddList from './AddList';
+
+interface Props {
+  onLayoutSave: any,
+  items: any,
+  onRemoveItem: any,
+  onAddItem: any,
+  originalItems: any,
+  heading: string,
+  canEdit: boolean,
+  autoSave?: boolean,
+}
 
 export default function TopBar({
   onLayoutSave,
@@ -11,11 +21,12 @@ export default function TopBar({
   onAddItem,
   originalItems,
   heading,
-  canEdit
-}: any) {
+  canEdit,
+  autoSave
+}: Props) {
 
   return (
-    <Box sx={{mx: 1, mt: 3}}>
+    <Box sx={{ mx: 1, mt: 3 }}>
       <Typography variant='h1'>
         {heading}
       </Typography>
@@ -27,9 +38,11 @@ export default function TopBar({
             onAddItem={onAddItem}
             originalItems={originalItems}
           />
-          <IconButton aria-label="save" onClick={onLayoutSave}>
-            <Save />
-          </IconButton>
+          {!autoSave &&
+            <IconButton aria-label="save" onClick={onLayoutSave}>
+              <Save />
+            </IconButton>
+          }
         </>
       }
     </Box>

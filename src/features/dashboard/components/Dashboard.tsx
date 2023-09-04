@@ -5,28 +5,25 @@ import TopBar from './TopBar';
 import Widget from './Widget';
 import '/node_modules/react-grid-layout/css/styles.css';
 import '/node_modules/react-resizable/css/styles.css';
-import { IComponentList } from '../models/dashboardTypes';
+import { IDashboardComponent, ILayoutKey } from '../models/dashboardTypes';
+import ControlCameraRoundedIcon from '@mui/icons-material/ControlCameraRounded';
+import { getStorageItem, setStorageItem } from 'src/utils/browserStorage';
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
-// TODO: TYPES, make so that you can optionally give a list of components and layout, editable or not, move storage to the util/hook items, responsive layout
-// https://javascript.plainenglish.io/tired-of-boring-static-dashboards-lets-build-a-fully-customizable-dashboard-in-react-88cb5369cfe1
-// if you are a developer, you can always edit and get layout etc
-// build custom devops items
-// does not save removed items
-// remove button optional
+//TODO: add item and remove items from dashboard
 
-interface DashboardProps{
+interface DashboardProps {
   canEdit?: boolean //whether the user can move / remove /add the components around 
   initialLayouts: ReactGridLayout.Layouts
-  componentList: IComponentList
+  componentList: IDashboardComponent
   heading: string
   page: string
+  autoSave?: boolean
 }
 
-export default function Content({initialLayouts, canEdit = true, componentList, heading, page}: DashboardProps) {
-  
+export default function Content({ initialLayouts, canEdit = true, componentList, heading, page, autoSave = false }: DashboardProps) {
   const [items, setItems] = useState<any>(Object.keys(componentList));
-  
+
   const onRemoveItem = (itemId: any) => {
     setItems(items.filter((i: any) => i !== itemId));
   };
@@ -35,27 +32,42 @@ export default function Content({initialLayouts, canEdit = true, componentList, 
     setItems([...items, itemId]);
   };
 
-  type LayoutKey = 'lg' | 'md' | 'sm' | 'xs' | 'xxs'; 
-  const layoutKeys: LayoutKey[] = Object.keys(initialLayouts) as LayoutKey[];
+  const layoutKeys: ILayoutKey[] = Object.keys(initialLayouts) as ILayoutKey[];
 
-  const modifyLayouts = (initialLayouts: any, layoutKeys: LayoutKey[]): Record<LayoutKey, any[]> => {
-    const modifiedLayouts: Record<LayoutKey, any[]> = layoutKeys.reduce(
+  const modifyLayouts = (initialLayouts: ReactGridLayout.Layouts, layoutKeys: ILayoutKey[]): Record<ILayoutKey, any[]> => {
+    const modifiedLayouts: Record<ILayoutKey, any[]> = layoutKeys.reduce(
       (acc, layoutKey) => {
         acc[layoutKey] = initialLayouts[layoutKey].map((item: any) => ({ ...item, static: true }));
         return acc;
       },
-      {} as Record<LayoutKey, any[]>
+      {} as Record<ILayoutKey, any[]>
     );
-  
+
     return modifiedLayouts;
   }
 
   const getInitLayout = () => {
-    if(canEdit){
+    if (canEdit) {
       return initialLayouts
-    }else{
+    } else {
       return modifyLayouts(initialLayouts, layoutKeys)
     }
+  }
+
+  const getFromLS = (key: any) => {
+    let ls: Record<any, any> = {};
+    try {
+      ls = getStorageItem(page) || {};
+    } catch (e) {
+      // no item in local storage
+    }
+    return ls[key];
+  }
+
+  const saveToLS = (key: any, value: any) => {
+    setStorageItem(page, JSON.stringify({
+      [key]: value,
+    }))
   }
 
   const [layouts, setLayouts] = useState(
@@ -64,35 +76,17 @@ export default function Content({initialLayouts, canEdit = true, componentList, 
 
   const onLayoutChange = (_: any, allLayouts: any) => {
     setLayouts(allLayouts);
+    if (autoSave) {
+      saveToLS('layouts', allLayouts);
+    }
   };
 
   const onLayoutSave = () => {
     saveToLS('layouts', layouts);
   };
 
-  function getFromLS(key: any) {
-    let ls: any = {};
-    if (localStorage) {
-      try {
-        ls = JSON.parse(localStorage.getItem(page) ?? '') || {};
-      } catch (e) {
-        // no item in local storage
-      }
-    }
-    return ls[key];
-  }
 
-  function saveToLS(key: any, value: any) {
-    if (localStorage) {
-      localStorage.setItem(
-        page,
-        JSON.stringify({
-          [key]: value,
-        }),
-      );
-    }
-  }
-  
+
   return (
     <>
       <TopBar
@@ -103,25 +97,29 @@ export default function Content({initialLayouts, canEdit = true, componentList, 
         originalItems={Object.keys(componentList)}
         heading={heading}
         canEdit={canEdit}
+        autoSave={autoSave}
       />
       <ResponsiveGridLayout
+        isDraggable={canEdit}
+        isResizable={canEdit}
         className="layout"
         layouts={layouts}
         breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-        cols={{ lg: 12, md: 8, sm: 6, xs: 4, xxs: 2 }}
-        rowHeight={80}
+        cols={{ lg: 24, md: 24, sm: 24, xs: 24, xxs: 24 }}
+        rowHeight={10}
         onLayoutChange={onLayoutChange}
       >
         {items.map((key: any) => (
           <div
             key={key}
             className="widget"
-            data-grid={{ w: 3, h: 2, x: 0, y: Infinity }}
+            data-grid={{ w: key.w, h: key.h, x: key.x, y: key.y }}
           >
             <Widget
               id={key}
               onRemoveItem={onRemoveItem}
-              component={componentList[key]}
+              component={componentList[key].component}
+              showBorder={componentList[key].showBorder}
             />
           </div>
         ))}

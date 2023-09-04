@@ -86,11 +86,11 @@ REACT_APP_FIREBASE_APP_ID=
 * [Infisical](https://infisical.com/) for management of environment variables
 
 TODO:
+//storybook full implementation
 //protected routes
 //index all exports
 //rbac -> CASL = fully document
 //refresh token //get new token //needed?
-//check to see if env vars are correct
 //feature flags
 //unverified
 //login 
