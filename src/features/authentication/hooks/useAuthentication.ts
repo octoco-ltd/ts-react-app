@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { AppAuthProvider, AuthService } from '../services/AuthenticationService';
+import { AuthService } from '../services/AuthenticationService';
 
 export const useAuthentication = (authProvider: AuthService) => {
   //TODO: IMPLEMENT ALL AUTH SERVICE METHODS HERE
-  const [user, setUser] = useState<any | null>(null); // Replace 'any' with your user type
+  const [user, setUser] = useState<any | null>(null); // TODO: Replace 'any' with your user type
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 

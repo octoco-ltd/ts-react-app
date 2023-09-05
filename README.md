@@ -3,34 +3,43 @@
 
 ## Get Started
 1. run `yarn install`
-2. run `yarn start`
-3. Ensure your IDE is configured for ESLint using the `eslintrc.json` file
+2. Ensure your IDE is configured for ESLint using the `eslintrc.json` file
+3. Choose your Auth Provider (replace to the necessary provider in these two files)
+    ```
+    src/App.tsx (1 place to change)
+    src/services/restApi/queries/config/query.config.ts (2 places to change)
+    ________________________________________
+    const authService = new AuthService(new <ADD PROVIDER>); 
+    //Auth0AuthProvider() | FirebaseAuthProvider() | CognitoAuthProvider() | ApiAuthProvider() | KeyCloakAuthProvider()
+    ```
 4. run `yarn storybook` in root to run storybook on your localhost (default port: 6006)
-5. Add .env file
-   
-```
-REACT_APP_BASE_API_URL=https://pokeapi.co/api/v2/
-REACT_APP_APP_BASE_URL=http://localhost:3000
-REACT_APP_APP_NAME=baseRepo
-REACT_APP_DEPLOYMENT_ENV=development
-REACT_APP_REDIRECT_SUCCESS=http://localhost:3000/status/success
-REACT_APP_REDIRECT_FAILURE=http://localhost:3000/status/failure
-REACT_APP_REDIRECT_CANCEL=http://localhost:3000/status/cancel
-REACT_APP_SENTRY_AUTH_TOKEN=19bff3931ee8453987abc4da7dc5cbd57f759a25323d434c804e7ac0dffe92bc
-REACT_APP_SENTRY_DSN=
-SENTRY_ORG=
-SENTRY_PROJECT=
-VERSION=`sentry-cli releases propose-version`
-REACT_APP_APP_COGNITO_USERPOOL_ID=
-REACT_APP_APP_COGNITO_CLIENT_ID=
-REACT_APP_FIREBASE_API_KEY=
-REACT_APP_FIREBASE_AUTH_DOMAIN=
-REACT_APP_FIREBASE_PROJECT_ID=
-REACT_APP_FIREBASE_STORAGE_BUCKET=
-REACT_APP_FIREBASE_MESSAGING_SENDER_ID=
-REACT_APP_FIREBASE_APP_ID=
-```
+5. Add .env file and add applicable vars (feel free to remove those not needed)
+   You will need to update the env.ts file and most likely remove the clients not used
 
+    ```
+    REACT_APP_BASE_API_URL=https://pokeapi.co/api/v2/
+    REACT_APP_APP_BASE_URL=http://localhost:3000
+    REACT_APP_APP_NAME=baseRepo
+    REACT_APP_DEPLOYMENT_ENV=development
+    REACT_APP_REDIRECT_SUCCESS=http://localhost:3000/status/success
+    REACT_APP_REDIRECT_FAILURE=http://localhost:3000/status/failure
+    REACT_APP_REDIRECT_CANCEL=http://localhost:3000/status/cancel
+    REACT_APP_SENTRY_AUTH_TOKEN=19bff3931ee8453987abc4da7dc5cbd57f759a25323d434c804e7ac0dffe92bc
+    REACT_APP_SENTRY_DSN=
+    SENTRY_ORG=
+    SENTRY_PROJECT=
+    VERSION=`sentry-cli releases propose-version`
+    REACT_APP_APP_COGNITO_USERPOOL_ID=
+    REACT_APP_APP_COGNITO_CLIENT_ID=
+    REACT_APP_FIREBASE_API_KEY=
+    REACT_APP_FIREBASE_AUTH_DOMAIN=
+    REACT_APP_FIREBASE_PROJECT_ID=
+    REACT_APP_FIREBASE_STORAGE_BUCKET=
+    REACT_APP_FIREBASE_MESSAGING_SENDER_ID=
+    REACT_APP_FIREBASE_APP_ID=
+    ```
+6. run `yarn start`
+   
 ### What is this repository for? ###
 
 * The purpose of this repository is to document the general stack which Octoco would like to use when scaffolding new web projects. 
@@ -87,6 +96,7 @@ REACT_APP_FIREBASE_APP_ID=
 
 TODO:
 //storybook full implementation
+//Debug mode
 //protected routes
 //index all exports
 //rbac -> CASL = fully document

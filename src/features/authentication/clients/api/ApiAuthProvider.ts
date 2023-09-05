@@ -1,5 +1,3 @@
-import { AppAuthProvider } from '../../services/AuthenticationService';
-
 export class Auth0AuthProvider {//implements AppAuthProvider
     signInWithEmailAndPassword(): Promise<void> {
         throw new Error('Method not implemented.');

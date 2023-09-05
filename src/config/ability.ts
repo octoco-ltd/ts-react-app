@@ -7,7 +7,13 @@ import { defineAbility } from '@casl/ability';
  */
 export default function defineAbilityFor(userType: string) {
     return defineAbility((can, cannot) => {
-        if (userType === 'admin') {
+        if (userType === 'superAdmin') {
+            // super Admin abilities
+            can('read', 'users');    // Read users of the platform
+            can('update', 'users');  // Update role of user
+            can('create', 'users');  // Create new user
+            can('delete', 'users');  // Delete users
+        } else if(userType === 'admin') {
             // Admin abilities
             can('read', 'users');    // Read users of the platform
             can('update', 'users');  // Update role of user

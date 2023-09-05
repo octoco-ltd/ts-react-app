@@ -1,11 +1,13 @@
+import { env } from 'src/env';
+
  const firebaseConfig: Record<string, any> = {
     config: {
-        apiKey: 'AIzaSyCVkwIxhbg3xutfTxe2j2IjAcs8WjF_dpY',
-        authDomain: 'octoco-base.firebaseapp.com',
-        projectId: 'octoco-base',
-        storageBucket: 'octoco-base.appspot.com',
-        messagingSenderId: '904597752995',
-        appId: '1:904597752995:web:e57c8f54771b22465bc316'
+        apiKey: env.REACT_APP_FIREBASE_API_KEY,
+        authDomain: env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+        projectId: env.REACT_APP_FIREBASE_PROJECT_ID,
+        storageBucket: env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+        messagingSenderId: env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+        appId: env.REACT_APP_FIREBASE_APP_ID
     }
 };
 

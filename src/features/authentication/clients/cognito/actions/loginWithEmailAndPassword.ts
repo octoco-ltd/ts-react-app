@@ -35,7 +35,7 @@ export const loginWithEmailAndPassword = createAsyncThunk(
             return {
                 user: res.idToken.payload,
                 status: 'authenticated',
-                accessToken: `Bearer ${res.accessToken.jwtToken}`,
+                accessToken: res.accessToken.jwtToken,
                 refreshToken: res.refreshToken.token,
                 error: null,
             };
