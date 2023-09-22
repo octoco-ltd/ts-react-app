@@ -3,7 +3,7 @@ import { debounce } from 'lodash';
 
 type DebouncedStateSetter<T> = (value: T) => void;
 
-export function useDebouncedState<T>(initialValue: T, delay = 500): [T, DebouncedStateSetter<T>] {
+export default function useDebouncedState<T>(initialValue: T, delay = 500): [T, DebouncedStateSetter<T>] {
   const [state, setState] = useState<T>(initialValue);
 
   const debouncedSetState = useCallback(
